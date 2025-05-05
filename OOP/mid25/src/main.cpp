@@ -82,6 +82,20 @@ public:
         }
     }
 };
+class Streaming_pot : public Pot{
+    int layer;
+    public:
+    Streaming_pot() : Pot(0.0, 0, 0, 0), layer(0) {}
+    Streaming_pot(double p, int w, int h, int a, int l) : Pot(p, w, h, a), layer(l) {}
+    ~Streaming_pot() {}
+    void set_layer(int l) { layer = l; }
+    int get_layer() { return layer; }
+    void show_pot_info()
+    {
+        Pot::show_pot_info();
+        cout << "Layer: " << layer << endl;
+    }
+};
 int main()
 {
     Stove stove(E_Stove_Type::Gas);
