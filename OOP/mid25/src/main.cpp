@@ -82,78 +82,54 @@ public:
         }
     }
 };
-class Streaming_pot : public Pot{
+class Streaming_pot : public Pot
+{
     int layer;
-    public:
+
+public:
     Streaming_pot() : Pot(0.0, 0, 0, 0), layer(0) {}
     Streaming_pot(double p, int w, int h, int a, int l) : Pot(p, w, h, a), layer(l) {}
     ~Streaming_pot() {}
     void set_layer(int l) { layer = l; }
     int get_layer() { return layer; }
-    void show_pot_info()
+    void show_streaming_pot_info()
     {
         Pot::show_pot_info();
         cout << "Layer: " << layer << endl;
     }
 };
-class Noodle_pot : public Pot{
+class Noodle_pot : public Pot
+{
     int compartment;
-    public:
+
+public:
     Noodle_pot() : Pot(0.0, 0, 0, 0), compartment(0) {}
     Noodle_pot(double p, int w, int h, int a, int c) : Pot(p, w, h, a), compartment(c) {}
     ~Noodle_pot() {}
     void set_compartment(int c) { compartment = c; }
     int get_compartment() { return compartment; }
-    void show_pot_info()
+    void show_noodle_pot_info()
     {
         Pot::show_pot_info();
         cout << "Compartment: " << compartment << endl;
     }
-        
 };
 int main()
 {
-    Stove stove(E_Stove_Type::Gas);
-    stove.show_stove_type();
+    vector<Stove> stove_vector = {Stove(E_Stove_Type::Gas), Stove(E_Stove_Type::Electric), Stove(E_Stove_Type::Induction)};
 
-    Stove array_stove[3] = {E_Stove_Type::Gas, E_Stove_Type::Electric, E_Stove_Type::Induction};
-    for (int i = 0; i < 3; i++)
+    vector<Pot> pot_vector = {Pot(100.0, 10, 20, 2), Pot(150.0, 15, 25, 1), Pot(200.0, 20, 30, 1)};
+    pot_vector[0].set_stove_type(0, E_Stove_Type::Gas);
+    pot_vector[0].set_stove_type(1, E_Stove_Type::Gas);
+    pot_vector[1].set_stove_type(1, E_Stove_Type::Electric);
+    pot_vector[2].set_stove_type(2, E_Stove_Type::Induction);
+
+    for (int i = 0; i < pot_vector.size(); i++)
     {
-        array_stove[i].show_stove_type();
-    }
-
-    vector<Stove> vector_stove = {E_Stove_Type::Gas, E_Stove_Type::Electric, E_Stove_Type::Induction};
-    for (int i = 0; i < vector_stove.size(); i++)
-    {
-        vector_stove[i].show_stove_type();
-    }
-
-    cout << endl;
-
-    Pot pot(100.0, 20, 10, 2);
-    pot.set_stove_type(0, E_Stove_Type::Electric);
-    pot.set_stove_type(1, E_Stove_Type::Induction);
-    pot.show_pot_info();
-    cout << endl;
-
-    Pot array_pot[2] = {Pot(50.0, 15, 8, 1), Pot(75.0, 18, 9, 2)};
-    array_pot[0].set_stove_type(0, E_Stove_Type::Gas);
-    array_pot[1].set_stove_type(0, E_Stove_Type::Electric);
-    array_pot[1].set_stove_type(1, E_Stove_Type::Induction);
-    for (int i = 0; i < 2; i++)
-    {
-        array_pot[i].show_pot_info();
+        cout << "Pot " << i + 1 << ":" << endl;
+        pot_vector[i].show_pot_info();
         cout << endl;
     }
-
-    vector<Pot> vector_pot = {Pot(60.0, 12, 6, 1), Pot(80.0, 22, 11, 2)};
-    vector_pot[0].set_stove_type(0, E_Stove_Type::Induction);
-    vector_pot[1].set_stove_type(0, E_Stove_Type::Electric);
-    vector_pot[1].set_stove_type(1, E_Stove_Type::Induction);
-    for (int i = 0; i < vector_pot.size(); i++)
-    {
-        vector_pot[i].show_pot_info();
-        cout << endl;
-    }
+    cout << endl;
     return 0;
 }
