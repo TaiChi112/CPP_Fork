@@ -14,13 +14,16 @@ enum class e_kaiyang_type
 class Food
 {
     double price;
+    static int amount_of_food;
 
 public:
     Food() : price(40.00) {}
     Food(double p) : price((p >= 0 ? p : 0)) {}
     virtual void show_food_info() = 0;
     int get_price() { return price; };
+    static int get_amount_of_food() { return amount_of_food; };
 };
+int Food::amount_of_food = 0;
 class KaoNiew : public Food
 {
     e_kaoniew_color color;
