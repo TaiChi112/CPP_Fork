@@ -6,7 +6,7 @@ enum class e_kaoniew_color
     WHITE,
     BLACK
 };
-enum class e_kai_yang_type
+enum class e_kaiyang_type
 {
     GRILLED_CHICKEN_WITH_FRESH_MILK,
     GRILLED_CHICKEN_WITH_TURMERIC,
@@ -17,7 +17,7 @@ class Food
 
 public:
     Food() : price(40.00) {}
-    Food(double p) : price(p) {}
+    Food(double p) : price((p >= 0 ? p : 0)) {}
     virtual void show_food_info() = 0;
     int get_price() { return price; };
 };
@@ -26,7 +26,8 @@ class KaoNiew : public Food
     e_kaoniew_color color;
 
 public:
-    KaoNiew(double p, e_kaoniew_color e) : Food(p), color(e) {};
+    KaoNiew() : Food(5.00), color(e_kaoniew_color::WHITE) {}
+    KaoNiew(double p, e_kaoniew_color e) : Food(p), color((e >= e_kaoniew_color::WHITE && e <= e_kaoniew_color::WHITE ? e : e_kaoniew_color::BLACK)) {};
     void show_food_info() override
     {
         cout << "Kao Niew price: " << this->get_price() << endl;
@@ -35,15 +36,15 @@ public:
 };
 class KaiYang : public Food
 {
-    e_kai_yang_type type;
+    e_kaiyang_type type;
 
 public:
-    KaiYang(double p, e_kai_yang_type e) : Food(p), type(e) {
-                                           };
+    KaiYang() : Food(80.00), type(e_kaiyang_type::GRILLED_CHICKEN_WITH_FRESH_MILK) {}
+    KaiYang(double p, e_kaiyang_type e) : Food(p), type((e >= e_kaiyang_type::GRILLED_CHICKEN_WITH_FRESH_MILK && e <= e_kaiyang_type::GRILLED_CHICKEN_WITH_TURMERIC ? e : e_kaiyang_type::GRILLED_CHICKEN_WITH_TURMERIC)) {};
     void show_food_info() override
     {
         cout << "Kai Yang price: " << this->get_price() << endl;
-        cout << "Kai Yang type: " << (type == e_kai_yang_type::GRILLED_CHICKEN_WITH_FRESH_MILK ? "Grilled Chicken with Fresh Milk" : "Grilled Chicken with Turmeric") << endl;
+        cout << "Kai Yang type: " << (type == e_kaiyang_type::GRILLED_CHICKEN_WITH_FRESH_MILK ? "Grilled Chicken with Fresh Milk" : "Grilled Chicken with Turmeric") << endl;
     }
 };
 class SomTum : public Food
@@ -51,7 +52,8 @@ class SomTum : public Food
     int amount_of_chili;
 
 public:
-    SomTum(double p, int amount_ch) : Food(p), amount_of_chili(amount_ch) {}
+    SomTum() : Food(50.00), amount_of_chili(3) {}
+    SomTum(double p, int amount_ch) : Food(p), amount_of_chili((amount_ch >= 0 ? amount_ch : 0)) {}
     virtual void show_somtum_info() = 0;
     int get_amount_of_chili() { return amount_of_chili; };
     void show_food_info() override
@@ -65,6 +67,7 @@ class TumPu : public SomTum
     bool is_plara;
 
 public:
+    TumPu() : SomTum(50.00, 4), is_plara(false) {}
     TumPu(double p, int amount_ch, bool plara) : SomTum(p, amount_ch), is_plara(plara) {}
     void show_somtum_info() override
     {
@@ -78,6 +81,7 @@ class TumThai : public SomTum
     bool is_peanut;
 
 public:
+    TumThai() : SomTum(55.00, 4), is_peanut(true) {}
     TumThai(double p, int amount_ch, bool peanut) : SomTum(p, amount_ch), is_peanut(peanut) {}
     void show_somtum_info() override
     {
