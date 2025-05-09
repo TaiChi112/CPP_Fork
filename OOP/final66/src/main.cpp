@@ -1,39 +1,75 @@
 #include <iostream>
 
 using namespace std;
-class Meat{
-    public:
-        
+enum class e_meat_type
+{
+    FRESH,
+    GRILLED,
+    FRIED,
 };
-class Fish: public Meat{
-    public:
-        
+enum class e_chicken_type
+{
+    BROILER_CHICKEN,
+    COUNTRY_CHICKEN,
 };
-        
-class Chicken: public Meat{
-    public:
-        
+enum class e_thaifood_spicy_level
+{
+    ONE,
+    TWO,
+    THREE,
+    FOUR,
+    FIVE
 };
-class Thai_Food{
-    public:
-        
+class Meat
+{
+    e_meat_type type;
+
+public:
 };
-class Soup : public Thai_Food{
-    public:
-        
+class Fish : public Meat
+{
+    string name;
+
+public:
 };
-class Tom_Yam: public Soup{
-    public:
-        
+
+class Chicken : public Meat
+{
+    e_chicken_type type;
+
+public:
 };
-class Tom_Klong: public Soup{
-    public:
-        
+class ThaiFood
+{
+    double price;
+    e_thaifood_spicy_level spicy_level;
+    Meat *meat;
+
+public:
 };
-class Larb: public Thai_Food{
-    public:
-        
+class Larb : public ThaiFood
+{
+    bool is_shallot;
+
+public:
 };
-int main(){
+class Soup : public ThaiFood
+{
+    bool is_hot_pot;
+public:
+};
+class Tom_Yam : public Soup
+{
+    bool is_clear;
+public:
+};
+class Tom_Klong : public Soup
+{
+    bool is_tomato;
+public:
+};
+
+int main()
+{
     return 0;
 }
